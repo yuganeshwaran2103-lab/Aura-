@@ -2,12 +2,14 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Filter, SlidersHorizontal, Grid3X3, Grid2X2, RotateCcw, Search, X } from 'lucide-react';
-import { PRODUCTS, COLLECTIONS } from '../data/products';
+import { COLLECTIONS } from '../data/products';
 import { ProductCard } from '../components/product/ProductCard';
 import { CategoryType } from '../types';
+import { useStore } from '../store/useStore';
 
 export const Shop: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { products: PRODUCTS } = useStore();
 
   // Filters State
   const initialCategory = (searchParams.get('category') as CategoryType) || 'all';
@@ -89,7 +91,7 @@ export const Shop: React.FC = () => {
       // Default: featured first
       return (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0);
     });
-  }, [category, collection, material, maxPrice, inStockOnly, searchQuery, sortBy]);
+  }, [category, collection, material, maxPrice, inStockOnly, searchQuery, sortBy, PRODUCTS]);
 
   const activeFiltersCount =
     (category !== 'all' ? 1 : 0) +

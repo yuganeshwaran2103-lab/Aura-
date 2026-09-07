@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { COLLECTIONS, PRODUCTS } from '../data/products';
+import { COLLECTIONS } from '../data/products';
+import { useStore } from '../store/useStore';
 
 export const Collections: React.FC = () => {
+  const { products } = useStore();
   return (
     <div className="min-h-screen bg-obsidian text-stone-200 pt-8 pb-24 px-6 sm:px-8">
       {/* Editorial Header */}
@@ -23,7 +25,7 @@ export const Collections: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-32">
         {COLLECTIONS.map((col, index) => {
           const isReversed = index % 2 === 1;
-          const colProducts = PRODUCTS.filter((p) => p.collection === col.id).slice(0, 2);
+          const colProducts = products.filter((p) => p.collection === col.id).slice(0, 2);
 
           return (
             <div

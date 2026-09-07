@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Gem, Compass, ShieldCheck, ChevronDown, Check, Star } from 'lucide-react';
-import { PRODUCTS, COLLECTIONS } from '../data/products';
+import { COLLECTIONS } from '../data/products';
 import { ProductCard } from '../components/product/ProductCard';
 import { JewelryCanvas } from '../components/3d/JewelryCanvas';
 import { MaterialType } from '../types';
+import { useStore } from '../store/useStore';
 
 export const Home: React.FC = () => {
   const [selected3DMaterial, setSelected3DMaterial] = useState<MaterialType>('18K Yellow Gold');
   const [activeTab, setActiveTab] = useState<'all' | 'rings' | 'necklaces' | 'watches'>('all');
+  const { products: PRODUCTS } = useStore();
 
   const bestSellers = PRODUCTS.filter((p) => p.isBestSeller);
   const displayedBestSellers = activeTab === 'all'

@@ -16,7 +16,7 @@ import {
   Ruler,
   X,
 } from 'lucide-react';
-import { PRODUCTS, SAMPLE_REVIEWS } from '../data/products';
+import { SAMPLE_REVIEWS } from '../data/products';
 import { JewelryCanvas } from '../components/3d/JewelryCanvas';
 import { ProductCard } from '../components/product/ProductCard';
 import { useStore } from '../store/useStore';
@@ -26,9 +26,8 @@ export const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const product = PRODUCTS.find((p) => p.id === id) || PRODUCTS[0];
-
-  const { addToCart, toggleWishlist, isInWishlist, addToast } = useStore();
+  const { addToCart, toggleWishlist, isInWishlist, addToast, products } = useStore();
+  const product = products.find((p) => p.id === id) || products[0];
 
   // Selected State
   const [selectedMaterial, setSelectedMaterial] = useState<MaterialType>(
@@ -95,7 +94,7 @@ export const ProductDetails: React.FC = () => {
   };
 
   // Related products
-  const relatedProducts = PRODUCTS.filter(
+  const relatedProducts = products.filter(
     (p) => p.category === product.category && p.id !== product.id
   ).slice(0, 3);
 
